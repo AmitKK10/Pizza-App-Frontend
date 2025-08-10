@@ -1,11 +1,9 @@
 // src/pages/Register.jsx
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../axios"; // ✅ use your axios instance here
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Register.css";
-
-const API_BASE_URL = "https://pizza-app-backend-vert.vercel.app"; // ✅ Change once, use everywhere
 
 const Register = () => {
   const [step, setStep] = useState(1); // 1 = Register, 2 = Verify OTP
@@ -43,7 +41,7 @@ const Register = () => {
 
     setLoading(true);
     try {
-      await axios.post(`${API_BASE_URL}/api/auth/register`, {
+      await api.post("/auth/register", {
         name,
         email,
         password,
@@ -67,7 +65,7 @@ const Register = () => {
 
     setLoading(true);
     try {
-      await axios.post(`${API_BASE_URL}/api/auth/verify-otp`, {
+      await api.post("/auth/verify-otp", {
         email,
         otp,
       });
