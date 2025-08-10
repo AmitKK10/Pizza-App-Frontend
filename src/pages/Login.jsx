@@ -28,13 +28,17 @@ const Login = () => {
       return;
     }
 
-    setLoading(true);
+ setLoading(true);
     try {
-      const res = await axios.post("http://localhost:55000/api/auth/login", {
-        identifier,
-        password,
-      });
-
+      const res = await axios.post(
+        "https://pizza-app-backend-vert.vercel.app/api/auth/login", // ✅ deployed backend URL
+        {
+          identifier,
+          password,
+        },
+        { withCredentials: true } // ✅ include cookies if needed
+      );
+      
       // Save auth token and user details in localStorage, including phone and active status
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
