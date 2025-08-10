@@ -19,7 +19,9 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:55000/api/pizza/predefined")
+     axios
+  .get(`${process.env.REACT_APP_API_URL}/pizza/predefined`)
+
       .then((res) => {
         const pizzasWithExtras = res.data.map((pizza, index) => ({
           ...pizza,
