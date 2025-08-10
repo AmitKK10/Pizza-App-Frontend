@@ -1,11 +1,16 @@
 import axios from 'axios';
 
+const API_BASE_URL =
+  process.env.NODE_ENV === 'production'
+    ? 'https://pizza-app-backend-vert.vercel.app/api'
+    : 'http://localhost:55000/api';
+
 const instance = axios.create({
-  baseURL: 'http://localhost:55000/api', // Note the /api prefix
+  baseURL: API_BASE_URL,
   withCredentials: true
 });
 
-
+// ✅ Attach token to every request
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -14,6 +19,7 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
+// ✅ Handle unauthorized errors globally
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
