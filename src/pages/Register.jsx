@@ -1,6 +1,6 @@
 // src/pages/Register.jsx
 import React, { useState } from "react";
-import api from "../axios"; // ✅ use your axios instance here
+import api from "../axios"; // ✅ your axios instance handles baseURL + token
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Register.css";
