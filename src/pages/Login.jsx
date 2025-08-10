@@ -1,6 +1,5 @@
-// src/pages/Login.jsx
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import api from "../axios"; // ✅ central axios instance
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Login.css";
@@ -28,18 +27,10 @@ const Login = () => {
       return;
     }
 
- setLoading(true);
+    setLoading(true);
     try {
-      const res = await axios.post(
-        "https://pizza-app-backend-vert.vercel.app/api/auth/login", // ✅ deployed backend URL
-        {
-          identifier,
-          password,
-        },
-        { withCredentials: true } // ✅ include cookies if needed
-      );
+      const res = await api.post("/auth/login", { identifier, password });
       
-      // Save auth token and user details in localStorage, including phone and active status
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
       localStorage.setItem("name", res.data.name || "User");
@@ -94,7 +85,6 @@ const Login = () => {
             type="button"
             className="toggle-password"
             onClick={() => setShowPassword(!showPassword)}
-            aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? "🙈" : "👁️"}
           </button>
