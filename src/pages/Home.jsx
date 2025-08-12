@@ -18,7 +18,6 @@ function Home() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    axios
      axios
   .get(`${process.env.REACT_APP_API_URL}/pizza/predefined`)
 
